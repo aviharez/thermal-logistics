@@ -1,0 +1,20 @@
+# Installation Scheduler - Setup & Teardown Scheduling
+@baseUrl = http://localhost:8080/api/v1
+
+### 1. Generate installation schedule - Project 1 (London Gala)
+GET {{baseUrl}}/schedule/1
+
+### 2. Generate schedule - Project 2 (Dubai outdoor)
+GET {{baseUrl}}/schedule/2
+
+### 3. Generate schedule - Project 3 (New York)
+GET {{baseUrl}}/schedule/3
+
+### 4. Regenerate schedule with latest weather forecast
+POST {{baseUrl}}/schedule/1/regenerate
+
+### 5. Regenerate Dubai schedule (high-stakes outdoor)
+POST {{baseUrl}}/schedule/2/regenerate
+
+### 6. Error case - schedule for non-existent project
+GET {{baseUrl}}/schedule/999

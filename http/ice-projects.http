@@ -1,0 +1,106 @@
+# Ice Project - Full Lifecycle Demo
+@baseUrl = http://localhost:8080/api/v1
+
+### 1. Create a new Ice Project (London Gala)
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "name": "Mayfair Gala Neptune Sculpture",
+  "description": "4-meter Neptune centerpiece for annual charity gala",
+  "latitude": 51.5074,
+  "longitude": -0.1278,
+  "venueName": "The Savoy Grand Ballroom",
+  "venueType": "INDOOR_COOLED",
+  "indoorCoolingOffset": 9.0,
+  "iceType": "CLEAR",
+  "sculptureVolumeLiters": 480.0,
+  "eventStartTime": "2026-08-20T19:00:00",
+  "eventEndTime": "2026-08-20T23:30:00",
+  "coolingEquipments": [
+    { "equipmentType": "FAN", "quantity": 2 },
+    { "equipmentType": "DRY_ICE_BOOSTER", "quantity": 3 },
+    { "equipmentType": "DRIP_TRAY", "quantity": 4 }
+  ]
+}
+
+### 2. Create a high-heat Dubai outdoor project
+POST {{baseUrl}}/projects
+
+{
+  "name": "Dubai Marina Seafood Buffet Display",
+  "description": "12-piece chilled seafoodd display on open-air marina terrace",
+  "latitude": 25.2048,
+  "longitude": 55.2708,
+  "venueName": "One&Only Royal Mirage - Arabian Court Terrace",
+  "venueType": "OUTDOOR",
+  "indoorCoolingOffset": 0.0,
+  "iceType": "WHITE",
+  "sculptureVolumeLiters": 120.0,
+  "eventStartTime": "2026-08-15T19:00:00",
+  "eventEndTime": "2026-08-15T23:30:00",
+  "coolingEquipments": [
+    { "equipmentType": "FAN", "quantity": 4 },
+    { "equipmentType": "DRY_ICE_BOOSTER", "quantity": 5 }
+  ]
+}
+
+### 3. List all projects
+GET {{baseUrl}}/projects
+
+### 4. Filter projects by status
+GET {{baseUrl}}/projects?status=DRAFT
+
+### 5. Get project by ID
+GET {{baseUrl}}/projects/1
+
+### 6. Update project status: DRAFT -> SCHEDULED
+PATCH {{baseUrl}}/projects/1/status?status=SCHEDULED
+
+### 7. Update project status: SCHEDULED -> ACTIVE
+PATCH {{baseUrl}}/projects/1/status?status=ACTIVE
+
+### 8. Add extra cooling equipment to project
+POST {{baseUrl}}/projects/1/equipment
+Content-Type: application/json
+
+{
+  "equipmentType": "DRY_ICE_BOOSTER",
+  "quantity": 2
+}
+
+### 9. Remove cooling equipment
+DELETE {{baseUrl}}/projects/1/equipment/1
+
+### 10. Full project update
+PUT {{baseUrl}}/projects/1
+
+{
+  "name": "Mayfair Gala Neptune Sculpture Updated",
+  "description": "4-meter Neptune centerpiece for annual charity gala updated",
+  "latitude": 51.5074,
+  "longitude": -0.1278,
+  "venueName": "The Savoy Grand Ballroom",
+  "venueType": "INDOOR_COOLED",
+  "indoorCoolingOffset": 10.0,
+  "iceType": "CLEAR",
+  "sculptureVolumeLiters": 500.0,
+  "eventStartTime": "2026-08-20T19:00:00",
+  "eventEndTime": "2026-08-20T23:30:00",
+  "coolingEquipments": [
+    { "equipmentType": "FAN", "quantity": 2 },
+    { "equipmentType": "DRY_ICE_BOOSTER", "quantity": 3 },
+    { "equipmentType": "DRIP_TRAY", "quantity": 4 }
+  ]
+}
+
+### 11. Validation error demo
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "description": "Missing name and coordinates. Should return 400"
+}
+
+### 12. Delete project
+DELETE {{baseUrl}}/projects/3

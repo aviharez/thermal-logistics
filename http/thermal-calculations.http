@@ -1,0 +1,32 @@
+# Thermal Calculation - Melt Rate & Physics Engine
+@baseUrl = http://localhost:8080/api/v1
+
+### 1. Full thermal calculation - Project 1 (London, indoor cooled)
+GET {{baseUrl}}/thermal/1/calculate
+
+### 2. Full thermal calculation - Project 2 (Dubai, outdoor/heat stress)
+GET {{baseUrl}}/thermal/2/calculate
+
+### 3. Full thermal calculation - Project 3 (New York)
+GET {{baseUrl}}/thermal/3/calculate
+
+### 4. Manual temperature override - worst-case 38 C heat wave scenario
+GET {{baseUrl}}/thermal/1/calculate/override?temperatureCelsius=38.0
+
+### 5. Manual override - comfortable 12 C evening scenario
+GET {{baseUrl}}/thermal/1/calculate/override?temperatureCelsius=12.0
+
+### 6. Manual override - Dubai worst case 45 C
+GET {{baseUrl}}/thermal/2/calculate/override?temperatureCelsius=45.0
+
+### 7. Quick melt rate check (current conditions)
+GET {{baseUrl}}/thermal/1/melt-rate
+
+### 8. Melt rate for Dubai outdoor display
+GET {{baseUrl}}/thermal/2/melt-rate
+
+### 9. Error case - project not found
+GET {{baseUrl}}/thermal/999/calculate
+
+### 10. Error case - invalid temperature override (out-of-range)
+GET {{baseUrl}}/thermal/1/calculate/override?temperatureCelsius=99.0
